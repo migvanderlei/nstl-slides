@@ -1,6 +1,6 @@
 ---
 name: html-slides
-description: Interviews the user on topic and goals, proposes a table of contents for approval, captures styling preferences, then produces a single standalone local HTML deck (Reveal.js) themed to match. Use when creating slides, presentations, talks, pitch decks, lesson decks, or when the user wants structured slide authoring with outline approval.
+description: Interviews the user on topic and goals, proposes a table of contents for approval, captures styling preferences, then produces a single standalone local HTML deck (Reveal.js) themed to match; slide copy defaults to Brazilian Portuguese (pt-BR). Use when creating slides, presentations, talks, pitch decks, lesson decks, or when the user wants structured slide authoring with outline approval.
 ---
 
 # HTML slides
@@ -10,6 +10,10 @@ description: Interviews the user on topic and goals, proposes a table of content
 Deliver **one self-contained `index.html`** that opens locally (`file://` or a static server). Use **Reveal.js 5** from a CDN (jsDelivr). No build step, no npm, unless the user already uses one.
 
 Do **not** write the full deck until the **table of contents is approved** and **styling choices are captured**.
+
+### Language
+
+Unless the user explicitly asks for another language, write the **approved TOC, all slide titles and body copy, speaker notes, and UI labels you add** in **Brazilian Portuguese** (norma-padrão clara, natural no Brasil). Use `lang="pt-BR"` on `<html>`. Technical **identifiers, APIs, and code** stay as-is; short glosses next to them may be in Portuguese if helpful. If part of the deck must be English (quotes, compliance text), keep that block in English and note it briefly.
 
 ---
 

@@ -1,5 +1,9 @@
 # HTML slides — reference
 
+## Language
+
+Default decks: `<html lang="pt-BR">` and Portuguese (Brazil) copy. Reveal’s UI chrome follows the library language; slide content is what you control.
+
 ## Reveal.js: useful `Reveal.initialize` options
 
 ```javascript
