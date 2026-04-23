@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Deck title — replace me</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reset.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/black.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/github-dark.min.css" />
+    <style>
+      .reveal h1,
+      .reveal h2,
+      .reveal h3 {
+        text-transform: none;
+      }
+      .reveal .muted {
+        opacity: 0.75;
+        font-size: 0.85em;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section>
+          <h1>Deck title</h1>
+          <p class="muted">Your name · Event · Date</p>
+          <aside class="notes">Welcome the audience; state the goal of the talk.</aside>
+        </section>
+
+        <section>
+          <h2>Agenda</h2>
+          <ul>
+            <li>First topic</li>
+            <li>Second topic</li>
+            <li>Q&amp;A</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Code sample</h2>
+          <pre><code class="language-js" data-trim data-noescape>
+function greet(name) {
+  return `Hello, ${name}`;
+}
+          </code></pre>
+        </section>
+
+        <section data-markdown data-separator="^\n---\n$" data-separator-vertical="^\n--\n$">
+          <textarea data-template>
+## Markdown slide
+
+Use the Markdown plugin for faster iteration.
+
+- Bullet one
+- Bullet two
+
+---
+
+## Vertical stack
+
+Second slide down (same horizontal step).
+          </textarea>
+        </section>
+
+        <section>
+          <h2>Thank you</h2>
+          <p>Questions?</p>
+        </section>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/highlight.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/markdown/markdown.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/highlight.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/notes/notes.js"></script>
+    <script>
+      Reveal.initialize({
+        hash: true,
+        slideNumber: "c/t",
+        plugins: [RevealMarkdown, RevealHighlight, RevealNotes],
+      });
+    </script>
+  </body>
+</html>
