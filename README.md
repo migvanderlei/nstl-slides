@@ -32,19 +32,12 @@ Convensão de nome para pastas em `decks/`: minúsculas, hífens, opcionalmente 
 
 ## Ver os slides no computador
 
-Na raiz do repositório:
+Abra o arquivo **`index.html`** do deck direto no navegador (duplo clique, arrastar para a janela, ou “Abrir arquivo…” no menu). Caminho típico:
 
-```bash
-python3 -m http.server 8000
-```
+`decks/sample-welcome/index.html`  
+`decks/<nome-da-pasta>/index.html`
 
-Abra no navegador (note a **barra no final** do caminho):
-
-`http://localhost:8000/decks/sample-welcome/`
-
-Para um deck que você criou: `http://localhost:8000/decks/<nome-da-pasta>/`
-
-Um único `index.html` também pode ser aberto via `file://`, mas um servidor local evita surpresas com caminhos e alguns plugins.
+Não é necessário subir servidor HTTP para visualizar ou apresentar; Reveal e destaques vêm da CDN e funcionam com `file://` na prática usual.
 
 ---
 

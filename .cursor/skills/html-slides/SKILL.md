@@ -7,7 +7,7 @@ description: Interviews the user on topic and goals, proposes a table of content
 
 ## Outcome
 
-Deliver **one self-contained `index.html`** that opens locally (`file://` or a static server). Use **Reveal.js 5** from a CDN (jsDelivr). No build step, no npm, unless the user already uses one.
+Deliver **one self-contained `index.html`** meant to open **directly in the browser** (`file://` is enough; do not require a local HTTP server). Use **Reveal.js 5** from a CDN (jsDelivr). No build step, no npm, unless the user already uses one.
 
 Do **not** write the full deck until the **table of contents is approved** and **styling choices are captured**.
 
@@ -103,7 +103,7 @@ Map answers into the deck: pick the **closest built-in Reveal theme** as a base,
 
 - [ ] TOC matches what was approved  
 - [ ] Theme reflects stated colors, type, density, motion  
-- [ ] Deck runs locally; keyboard navigation works  
+- [ ] Deck opens by opening the HTML file in a browser (`file://`); keyboard navigation works  
 - [ ] Contrast is readable on laptop and projector  
 
 ## When not to use Reveal
