@@ -1,104 +1,111 @@
 ---
 name: html-slides
-description: Builds self-contained HTML presentation decks with Reveal.js (sections, themes, code highlighting, speaker notes, PDF export). Use when creating slides, decks, talks, Reveal.js presentations, HTML exports from Markdown, or speaker-note layouts.
+description: Interviews the user on topic and goals, proposes a table of contents for approval, captures styling preferences, then produces a single standalone local HTML deck (Reveal.js) themed to match. Use when creating slides, presentations, talks, pitch decks, lesson decks, or when the user wants structured slide authoring with outline approval.
 ---
 
 # HTML slides
 
-## Default approach
+## Outcome
 
-Use **Reveal.js 5** loaded from a CDN (jsDelivr). Ship a single `index.html` per deck.
+Deliver **one self-contained `index.html`** that opens locally (`file://` or a static server). Use **Reveal.js 5** from a CDN (jsDelivr). No build step, no npm, unless the user already uses one.
 
-## File layout
+Do **not** write the full deck until the **table of contents is approved** and **styling choices are captured**.
 
-**Multi-deck shared repo** (this project’s convention):
+---
 
-```
-decks/<slug>/index.html   # one folder per talk or version
-decks/<slug>/assets/      # optional images and local files
-decks/_template/          # copy to start a new deck; do not edit in place for real talks
-```
+## Phase 1 — Interview (topic)
 
-**Single-deck repo** (elsewhere):
+Conduct a short interview before proposing structure. Use chat; use **AskQuestion** when it is available for multiple-choice speedups.
 
-```
-index.html
-assets/                   # optional
-```
+Cover at least:
 
-Avoid npm unless the user already uses a bundler in the project.
+- Working title; subtitle or tagline; optional author / affiliation / date  
+- **Audience** (who they are, prior knowledge, what they care about)  
+- **Purpose** (inform, persuade, teach, status update, pitch, etc.)  
+- **Length** (minutes or approximate slide count)  
+- **Must-include** points, facts, examples, demos, or stories  
+- **Out of scope** or sensitive topics to avoid  
+- **Tone** (formal, conversational, bold, academic, …)  
+- **Ending** (Q&amp;A, CTA, recap, next steps)  
+- Whether they need **code samples**, **diagrams placeholders**, or **speaker notes**
 
-**Highlight plugin:** load `highlight.min.js` (hljs) **before** Reveal’s `plugin/highlight/highlight.js`.
+Infer reasonable defaults only for minor details; ask when unsure.
 
-## HTML skeleton
+---
 
-- Wrap all slides in:
+## Phase 2 — Table of contents (proposal)
 
-```html
-<div class="reveal">
-  <div class="slides">
-    <section>...</section>
-  </div>
-</div>
-```
+Draft a **numbered outline** of slides (not HTML yet). For each item include:
 
-- One logical slide per `<section>`. Nested `<section>` elements create vertical stacks.
-- Title slide first: event name, title, author, date.
+1. Slide title (as it will appear)  
+2. One line: what that slide accomplishes  
 
-## Scripts and plugins (CDN)
+Example shape:
 
-Typical head/body includes:
-
-- `reveal.js` CSS: `dist/reveal.css` + one theme from `dist/theme/`
-- `reveal.js` JS: `dist/reveal.js`
-- Plugins as needed from `plugin/` (markdown, notes, highlight, math)
-
-Initialize after DOM ready:
-
-```javascript
-Reveal.initialize({
-  hash: true,
-  slideNumber: true,
-  plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
-});
+```markdown
+1. Title — hook + who this is for
+2. Context — why this matters now
+3. Problem — current pain (concise)
+...
+N. Summary + next steps
 ```
 
-Match plugin script tags to the `Reveal.*` symbols passed into `plugins`.
+Present the TOC clearly and ask for **approval or edits**.
 
-## Content rules
+---
 
-- Prefer **semantic headings** (`h1`–`h3`) inside sections for outline and accessibility.
-- **Code**: `<pre><code class="language-ts">` and enable the Highlight plugin rather than pasting pre-styled spans.
-- **Speaker notes**: separate `<aside class="notes">` inside the same `<section>`; open presenter mode with `s` when Notes plugin is loaded.
-- **Images**: local paths under `assets/`; set explicit `width` or constrain with CSS so layouts do not jump between slides.
-- **Fragments**: use `class="fragment"` for incremental reveals; avoid abusing animations for essential information.
+## Phase 3 — Approval gate
 
-## Styling
+- If the user requests changes: **revise the TOC** and present again.  
+- **Only after explicit approval** (“approved”, “looks good”, “proceed”, or they edit the TOC and confirm) may you generate HTML.
 
-- Start from a built-in Reveal theme; add a short `<style>` block only for accents, logos, or typography tweaks.
-- Keep contrast high; assume both projector and laptop viewing.
+Do not skip this gate to save time.
 
-## Markdown option
+---
 
-If the user supplies Markdown, either:
+## Phase 4 — Styling interview (theme)
 
-1. Embed it in a `<section data-markdown>` with a `<textarea data-template>` pattern and the Markdown plugin, or  
-2. Convert to HTML sections in-repo when a build step already exists.
+After TOC approval, ask **styling** questions (chat and/or AskQuestion). Capture concrete choices:
 
-Do not introduce a build tool solely for Markdown unless requested.
+| Area | Ask / options |
+|------|----------------|
+| **Mode** | Light, dark, or high-contrast |
+| **Mood** | e.g. corporate minimal, playful, academic, bold/startup, elegant |
+| **Colors** | Primary, accent, background (hex or named); optional link to brand guidelines |
+| **Type** | Sans vs serif; system stack vs named **Google Fonts** (one heading + one body max) |
+| **Density** | Spacious vs information-dense |
+| **Shape** | Sharp vs rounded; shadows none / subtle / strong |
+| **Motion** | Restrained (`fade`/`none`) vs standard vs energetic transitions |
 
-## Quality checklist
+Map answers into the deck: pick the **closest built-in Reveal theme** as a base, then override with a `<style>` block using **CSS variables** and `.reveal` / `.reveal .slides section` rules (see [reference.md](reference.md)).
 
-- [ ] Deck opens locally via `file://` or a static server without errors
-- [ ] Arrow keys and overview (`Esc`) work
-- [ ] Title and major sections have clear headings
-- [ ] Code blocks specify a language for highlighting
-- [ ] Notes (if used) are in `<aside class="notes">`
+---
+
+## Phase 5 — Build
+
+1. Produce **one `index.html`** with embedded theme CSS (and optional `<link>` to Google Fonts only if the user agreed).  
+2. Implement **exactly the approved TOC**; adjust heading text only if needed for clarity—do not add major sections without asking.  
+3. Reveal structure, script **order**, plugins, and accessibility rules below still apply.
+
+### Technical defaults
+
+- Wrap slides: `<div class="reveal"><div class="slides">` … `</div></div>`  
+- One main idea per `<section>`; nested `<section>` only for vertical stacks.  
+- **Scripts:** `reveal.js` → `highlight.min.js` (hljs) → Reveal plugins (`markdown`, `highlight`, `notes` as needed).  
+- **Semantic headings**; code in `<pre><code class="language-…">` with Highlight plugin; notes in `<aside class="notes">`.  
+- **Images:** prefer none in the first pass unless the user supplied paths or URLs; if they add files later, use relative paths beside the HTML.
+
+### Quality checklist
+
+- [ ] TOC matches what was approved  
+- [ ] Theme reflects stated colors, type, density, motion  
+- [ ] Deck runs locally; keyboard navigation works  
+- [ ] Contrast is readable on laptop and projector  
 
 ## When not to use Reveal
 
-If the user forbids external scripts, needs a trivial handout, or wants a single scrolling page, use the **vanilla full-page sections** pattern in [reference.md](reference.md).
+If the user forbids external scripts, use the vanilla pattern in [reference.md](reference.md) and still follow the same interview → TOC → approval → styling flow.
 
 ## Additional resources
 
-- Reveal options, math, and PDF export: [reference.md](reference.md)
+- Reveal options, PDF, math, **theme variable overrides**: [reference.md](reference.md)

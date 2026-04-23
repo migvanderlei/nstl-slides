@@ -82,6 +82,31 @@ Extend with print CSS (`@media print { section.slide { min-height: auto; break-a
 
 Pin CDN URLs to a specific Reveal **patch** version once the deck works, so future CDN updates do not break plugins.
 
-## Multi-deck repository
+## Theming (single `index.html`)
 
-When several decks live in one repo (for example under `decks/<slug>/`), keep each deck self-contained: relative `assets/`, CDN scripts only, no shared `../` dependencies between decks unless the team explicitly maintains a common partial (not the default here).
+1. Pick a **Reveal built-in theme** CSS (`dist/theme/white.css`, `black.css`, `league.css`, …) closest to the user’s light/dark and mood.  
+2. Add overrides **after** the theme link:
+
+```html
+<style>
+  :root {
+    --r-background-color: #0f1115;
+    --r-main-color: #e8eaef;
+    --r-heading-color: #7ee787;
+    --r-link-color: #79c0ff;
+    --r-heading-font: "DM Sans", system-ui, sans-serif;
+    --r-main-font: "Source Sans 3", system-ui, sans-serif;
+  }
+  .reveal .slides section {
+    text-align: left;
+  }
+</style>
+```
+
+Reveal 4/5 themes expose `--r-*` variables; tweak heading/body sizes in `.reveal h1, .reveal h2` if the user asked for dense or spacious layouts. Match **transitions** in `Reveal.initialize({ transition: 'fade' | 'slide' | … })` to the motion level they chose.
+
+For **Google Fonts**, add a `<link href="https://fonts.googleapis.com/css2?family=…" rel="stylesheet">` before Reveal CSS, then reference the same family names in `--r-heading-font` / `--r-main-font`.
+
+## Multi-deck repository (optional)
+
+If several decks live in one repo (for example under `decks/<slug>/`), keep each deck self-contained: relative `assets/`, CDN scripts only, no shared `../` dependencies between decks unless the team explicitly maintains a common partial.
