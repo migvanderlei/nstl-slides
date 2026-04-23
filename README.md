@@ -1,6 +1,22 @@
-# Shared HTML slide decks
+# nstl-slides
 
-This repository holds separate **Reveal.js** presentations—one folder per deck—so you can version, link, and host them together.
+Shared **Reveal.js** presentations—one folder per deck—so you can version, link, and host them together.
+
+**GitHub:** intended remote is `git@github.com:migvanderlei/nstl-slides.git` (SSH user was detected from your GitHub login). The remote `origin` is already set in this clone. Create the empty repository on GitHub (no README, no license, no `.gitignore`), then run:
+
+```bash
+git push -u origin main
+```
+
+Or, after a one-time `gh auth login` (GitHub CLI is installed at `~/.local/bin/gh`):
+
+```bash
+export PATH="$HOME/.local/bin:$PATH"
+gh repo create nstl-slides --public
+git push -u origin main
+```
+
+`origin` is already `git@github.com:migvanderlei/nstl-slides.git`.
 
 ## Layout
 
