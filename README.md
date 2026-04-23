@@ -1,49 +1,98 @@
 # nstl-slides
 
-Shared **Reveal.js** presentations—one folder per deck—so you can version, link, and host them together.
+Repositório para **apresentações em HTML** com [Reveal.js](https://revealjs.com/): cada palestra ou versão fica em sua própria pasta, tudo versionável e fácil de hospedar como site estático.
 
-**GitHub:** intended remote is `git@github.com:migvanderlei/nstl-slides.git` (SSH user was detected from your GitHub login). The remote `origin` is already set in this clone. Create the empty repository on GitHub (no README, no license, no `.gitignore`), then run:
+---
 
-```bash
-git push -u origin main
-```
+## Por que existe
 
-Or, after a one-time `gh auth login` (GitHub CLI is installed at `~/.local/bin/gh`):
+- **Slides autocontidos** — HTML + opcional `assets/`; Reveal via CDN (jsDelivr), sem build obrigatório.  
+- **Vários decks** — Um diretório por tema ou evento, sem misturar conteúdo.  
+- **Skill no Cursor** — Fluxo guiado (entrevista → sumário → aprovação → tema → arquivo final); conteúdo dos slides em **português do Brasil** por padrão.
 
-```bash
-export PATH="$HOME/.local/bin:$PATH"
-gh repo create nstl-slides --public
-git push -u origin main
-```
+---
 
-`origin` is already `git@github.com:migvanderlei/nstl-slides.git`.
-
-## Layout
+## Estrutura
 
 ```
-decks/
-  _template/     # copy this folder to start a new talk
-  <your-slug>/   # one directory per event or topic
-    index.html
-    assets/      # optional: images, diagrams, local files
+nstl-slides/
+├── README.md                 ← você está aqui
+├── decks/
+│   ├── README.md             ← índice dos decks
+│   ├── _template/            ← copie para começar um deck novo
+│   └── sample-welcome/       ← exemplo mínimo (pode apagar)
+└── .cursor/skills/html-slides/
+    ├── SKILL.md              ← instruções da skill
+    └── reference.md          ← Reveal, tema, PDF, etc.
 ```
 
-Naming tips for `<your-slug>`: use lowercase, hyphens, and a date or venue if useful (for example `qcon-london-2026-04`).
+Convensão de nome para pastas em `decks/`: minúsculas, hífens, opcionalmente data ou evento (ex.: `tech-day-2026-04`).
 
-## Viewing locally
+---
 
-From the repository root:
+## Ver os slides no computador
+
+Na raiz do repositório:
 
 ```bash
 python3 -m http.server 8000
 ```
 
-Then open `http://localhost:8000/decks/<your-slug>/` in a browser (trailing slash avoids broken relative paths on some servers).
+Abra no navegador (note a **barra no final** do caminho):
 
-## Publishing (optional)
+`http://localhost:8000/decks/sample-welcome/`
 
-Any static host works (GitHub Pages, Netlify, Cloudflare Pages). Point the site root at this repository (or a `public/` copy) so each deck stays under `/decks/<slug>/`. Decks use CDN-hosted Reveal.js, so you only upload HTML and `assets/`.
+Para um deck que você criou: `http://localhost:8000/decks/<nome-da-pasta>/`
 
-## Cursor skill
+Um único `index.html` também pode ser aberto via `file://`, mas um servidor local evita surpresas com caminhos e alguns plugins.
 
-Agent guidance for authoring these decks lives in `.cursor/skills/html-slides/`. Anyone cloning the repo gets the same conventions in Cursor.
+---
+
+## Publicar (opcional)
+
+Qualquer hospedagem estática serve (GitHub Pages, Netlify, Cloudflare Pages, etc.). Publique a raiz do repositório para manter URLs do tipo `/decks/<slug>/`.
+
+Repositório no GitHub: [github.com/migvanderlei/nstl-slides](https://github.com/migvanderlei/nstl-slides)
+
+---
+
+## Skill do Cursor: `html-slides`
+
+A skill ensina o agente a **montar o deck com você**, não a “chutar” 40 slides de uma vez.
+
+### O que ela faz
+
+1. **Entrevista** — Público, objetivo, duração, o que não pode faltar, tom, fechamento.  
+2. **Sumário (TOC)** — Lista numerada: título do slide + uma linha do propósito.  
+3. **Aprovação** — Só depois do seu “ok” (ou ajustes) ela gera o HTML.  
+4. **Estilo** — Modo claro/escuro, cores, tipografia, densidade, movimento; aplica no tema Reveal.  
+5. **Entrega** — Um `index.html` standalone, em **pt-BR** por padrão (`lang="pt-BR"`).
+
+Detalhes técnicos (Reveal, variáveis CSS `--r-*`, PDF, fallback sem CDN) estão em `.cursor/skills/html-slides/reference.md`.
+
+### Como usar no Cursor
+
+1. **Clone** este repositório (a pasta `.cursor/skills/` vai junto).  
+2. Abra a **raiz** do projeto no Cursor.  
+3. Para o agente seguir a skill, **anexe** a skill à mensagem (anexo manual da skill *html-slides*, se o seu Cursor listar skills do projeto) **ou** escreva algo como: *“Use a skill html-slides e crie um deck sobre …”*.  
+4. Responda às perguntas, **aprove o sumário**, defina o visual — só então peça o arquivo.
+
+Se a skill não aparecer automaticamente, confira se o diretório `.cursor/skills/html-slides/SKILL.md` existe na raiz do workspace.
+
+### Onde editar a skill
+
+| Arquivo | Função |
+|---------|--------|
+| `.cursor/skills/html-slides/SKILL.md` | Fluxo, regras, checklist |
+| `.cursor/skills/html-slides/reference.md` | Referência técnica (Reveal, tema, PDF) |
+
+---
+
+## Novo deck rapidamente
+
+```bash
+cp -r decks/_template decks/meu-assunto
+# edite decks/meu-assunto/index.html
+```
+
+Atualize também `decks/README.md` com uma linha no índice. Mais detalhes: [decks/README.md](decks/README.md).
